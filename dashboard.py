@@ -275,29 +275,26 @@ with Streamlit.sidebar.expander("📋 Generate Morning Brief"):
 # ---------------------------------------------------------
 # 6. DASHBOARD HEADER INTERFACE
 # ---------------------------------------------------------
-header_container = Streamlit.container()
+import streamlit.components.v1 as components
 
-with header_container:
-    Streamlit.markdown(
-        f"""
-        <div style='text-align: center; font-family: sans-serif;'>
-            <div style='font-weight: 900; color: #CC0000; font-size: 1.2em; text-transform: uppercase; margin-bottom: 5px;'>
-                UNOFFICIAL // FOR INTERNAL BRIEFING USE ONLY
-            </div>
-            
-            <h2 style='margin: 0;'>INTELLIGENCE FEED</h2>
-            <p style='font-size: 0.8em; margin-bottom: 0px;'>DATA SNAPSHOT: {date_str}</p>
-            
-            <p style='font-size: 0.85em; font-style: italic; color: #6B4423; margin-top: 0px; margin-bottom: 0px;'>
-                All information sourced from a live environment at 
-                <span style='color: #8B0000; font-weight: bold;'>{dtg}</span>.
-            </p>
-            
-            <hr style='margin-top: 0px; margin-bottom: 5px; border: none; border-top: 2px solid #C3B091;'>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+# Define the tight-layout HTML content
+header_html = f"""
+<div style='text-align: center; font-family: sans-serif; line-height: 1.2;'>
+    <div style='font-weight: 900; color: #CC0000; font-size: 1.2em; text-transform: uppercase; margin-bottom: 5px;'>
+        UNOFFICIAL // FOR INTERNAL BRIEFING USE ONLY
+    </div>
+    <h2 style='margin: 0;'>INTELLIGENCE FEED</h2>
+    <p style='font-size: 0.8em; margin-bottom: 0px;'>DATA SNAPSHOT: {date_str}</p>
+    <p style='font-size: 0.85em; font-style: italic; color: #6B4423; margin-top: 0px; margin-bottom: 0px;'>
+        All information sourced from a live environment at 
+        <span style='color: #8B0000; font-weight: bold;'>{dtg}</span>.
+    </p>
+    <hr style='margin-top: 0px; margin-bottom: 5px; border: none; border-top: 2px solid #C3B091;'>
+</div>
+"""
+
+# Force render using components.html to prevent "raw code" display
+components.html(header_html, height=160)
 
 # Logic check
 if df.empty:
