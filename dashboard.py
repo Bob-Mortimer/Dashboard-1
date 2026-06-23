@@ -95,7 +95,9 @@ Streamlit.markdown("""
 # ---------------------------------------------------------
 # 3. API KEY SECURITY
 # ---------------------------------------------------------
-news_api_key = "5f2b6766fa854e2489f0704311bc22d5"
+# Replace your hardcoded key with this:
+api_key = Streamlit.secrets["NEWS_API_KEY"]
+# Pass this 'api_key' variable into your fetch_newsapi_data function
 
 # All sidebar and os.environ code has been deleted so it cannot overwrite your key!
 
