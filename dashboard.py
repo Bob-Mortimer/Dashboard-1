@@ -124,10 +124,18 @@ SEA_LOCATIONS = {
 # ---------------------------------------------------------
 # 5. INTELLIGENCE DATA PIPELINE (Theater vs. Global Split)
 # ---------------------------------------------------------
-def fetch_newsapi_data(query_string):
-    url = "https://newsapi.org/v2/everything"
-    trusted_domains = "reuters.com,apnews.com,bbc.co.uk,aljazeera.com,bloomberg.com,defensenews.com,scmp.com,channelnewsasia.com,theguardian.com,ft.com,wsj.com"
-    newsapi_start_date = seven_days_ago.strftime('%Y-%m-%d')
+def fetch_newsapi_data(query):
+    # Retrieve the secret directly inside the function
+    # Ensure this key name matches EXACTLY what you put in Streamlit Cloud Secrets
+    news_api_key = Streamlit.secrets["NEWS_API_KEY"] 
+    
+    url = f"https://newsapi.org/v2/everything?q={query}&apiKey={news_api_key}"
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        return response.json().get('articles', [])
+    else:
+        return []
     
     params = {
         "apiKey": news_api_key,
